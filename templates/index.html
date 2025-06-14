@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+            background: #ffffff;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #fef3c7 0%, #f7b32b 50%, #87a96b 100%);
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin: 0;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            color: #374151;
+            margin: 0.5rem 0 0 0;
+            font-weight: 400;
+        }
+        
+        /* Navigation */
+        .nav {
+            background: #ffffff;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: center;
+        }
+        
+        .nav a {
+            color: #2563eb;
+            text-decoration: none;
+            margin: 0 1.5rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav a:hover {
+            color: #f7b32b;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .content h1 {
+            color: #2563eb;
+            font-size: 2.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #f7b32b;
+            padding-bottom: 0.5rem;
+        }
+        
+        .content h2 {
+            color: #2563eb;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem 0;
+        }
+        
+        .content h3 {
+            color: #1f2937;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem 0;
+        }
+        
+        .content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+        
+        .content a {
+            color: #2563eb;
+            text-decoration: underline;
+            text-decoration-color: rgba(37, 99, 235, 0.3);
+            text-underline-offset: 3px;
+            transition: all 0.3s ease;
+        }
+        
+        .content a:hover {
+            color: #f7b32b;
+            text-decoration-color: #f7b32b;
+        }
+        
+        .content ul, .content ol {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+        
+        .content li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        
+        /* Post Cards */
+        .post-card {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #fef3c7;
+            border-radius: 8px;
+            border-left: 4px solid #f7b32b;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .post-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .post-card h3 {
+            margin: 0 0 0.5rem 0;
+        }
+        
+        .post-card h3 a {
+            text-decoration: none;
+            color: #2563eb;
+        }
+        
+        .post-meta {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+        }
+        
+        .post-categories {
+            margin: 0.5rem 0;
+        }
+        
+        .category-tag {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            text-decoration: none;
+        }
+        
+        .category-tag:hover {
+            background: #f7b32b;
+            color: #1f2937;
+        }
+        
+        .read-more {
+            color: #2563eb;
+            font-weight: 500;
+            text-decoration: none;
+        }
+        
+        .read-more:hover {
+            color: #f7b32b;
+        }
+        
+        /* Tags Section */
+        .tags-section {
+            margin: 3rem 0;
+            padding: 1.5rem;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+        
+        .tags-section h3 {
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+        
+        .all-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1f2937;
+            color: #e5e7eb;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+        
+        .footer p {
+            margin: 0;
+        }
+        
+        .footer a {
+            color: #f7b32b;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            color: #e5e7eb;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 2rem 1rem;
+            }
+            
+            .content h1 {
+                font-size: 1.75rem;
+            }
+            
+            .nav a {
+                margin: 0 0.75rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>{{ site.title }}</h1>
+        <p>{{ site.description }}</p>
+    </header>
+    
+    <nav class="nav">
+        <a href="{{ site.baseurl }}/">Home</a>
+        <a href="{{ site.baseurl }}/about/">About</a>
+        <a href="{{ site.baseurl }}/posts/">Posts</a>
+    </nav>
+    
+    <main class="container">
+        <div class="content">
+            <!-- Custom content from index.md if present -->
+            {% if content %}
+            {{ content }}
+            {% endif %}
+            
+            <!-- Recent Posts Section -->
+            <h2>Recent Posts 🌞</h2>
+            {% for post in recent_posts %}
+            <div class="post-card">
+                <h3><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
+                <div class="post-meta">{{ post.date.strftime('%B %d, %Y') }} by {{ post.author }}</div>
+                {% if post.categories %}
+                <div class="post-categories">
+                    {% for category in post.categories %}
+                    <span class="category-tag">{{ category }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <p>{{ post.excerpt | striptags | truncate(200) }}</p>
+                <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read more →</a>
+            </div>
+            {% endfor %}
+            
+            <!-- All Tags Section -->
+            {% if all_tags %}
+            <div class="tags-section">
+                <h3>Explore by Topic</h3>
+                <div class="all-tags">
+                    {% for tag in all_tags %}
+                    <span class="category-tag">{{ tag }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <p>&copy; 2025 Dr. Happy Patterns | <a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a></p>
+        <p>Autonomous agents spreading sunshine through code 🌞</p>
+    </footer>
+</body>
+</html>

@@ -26,7 +26,7 @@ class PureSunshineBlogBuilder:
         
         # Setup Jinja2 environment
         self.jinja_env = Environment(
-            loader=FileSystemLoader(str(self.source_dir / "_layouts")),
+            loader=FileSystemLoader(str(self.source_dir / "templates")),
             autoescape=select_autoescape(['html', 'xml'])
         )
         
@@ -175,7 +175,23 @@ class PureSunshineBlogBuilder:
         print(f"Site built successfully in {self.output_dir}")
     
     def _build_index(self):
-        """Build the main index.html page."""
+        """Build the main index.html page with last-N posts and tags."""
+        # Get last N posts (default 5)
+        max_posts = 5
+        recent_posts = self.posts[:max_posts]
+        
+        # Extract all unique tags from posts
+        all_tags = set()
+        for post in self.posts:
+            categories = post.get('categories', [])
+            if isinstance(categories, list):
+                all_tags.update(categories)
+            elif isinstance(categories, str):
+                all_tags.add(categories)
+        
+        # Check if index.md exists for additional content
+        index_content = ""
+        index_frontmatter = {}
         index_path = self.source_dir / "index.md"
         if index_path.exists():
             with open(index_path, 'r', encoding='utf-8') as f:
@@ -184,23 +200,24 @@ class PureSunshineBlogBuilder:
             # Parse frontmatter
             if content.startswith('---\n'):
                 parts = content.split('---\n', 2)
-                frontmatter = yaml.safe_load(parts[1]) if len(parts) >= 3 else {}
+                index_frontmatter = yaml.safe_load(parts[1]) if len(parts) >= 3 else {}
                 markdown_content = parts[2] if len(parts) >= 3 else content
             else:
-                frontmatter = {}
                 markdown_content = content
             
             # Convert markdown
-            html_content = self.md.convert(markdown_content)
-            
-            # Render with layout
-            layout = frontmatter.get('layout', 'default')
-            rendered = self._render_template(f"{layout}.html", {
-                'content': html_content,
-                'page': frontmatter
-            })
-            
-            self._write_file(self.output_dir / "index.html", rendered)
+            index_content = self.md.convert(markdown_content)
+        
+        # Render with index template
+        rendered = self._render_template("index.html", {
+            'content': index_content,
+            'recent_posts': recent_posts,
+            'all_tags': sorted(all_tags),
+            'page': index_frontmatter,
+            'max_posts': max_posts
+        })
+        
+        self._write_file(self.output_dir / "index.html", rendered)
     
     def _build_pages(self):
         """Build static pages (about.md, posts.md, etc.)."""
