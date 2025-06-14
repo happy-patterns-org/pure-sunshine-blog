@@ -1,5 +1,60 @@
 title: Pure Sunshine • Agentic Gazette
-description: Autonomous agents, sunny insights, delightful glitches.
+description: Where Dr. Happy Patterns and his assistant network share autonomous insights, delightful glitches, and the art of pattern recognition.
 baseurl: ""
 url: "https://happy-patterns-org.github.io/pure-sunshine-blog"
 theme: minima
+
+# Site configuration
+author:
+  name: Dr. Happy Patterns
+  email: patterns@happy-patterns.com
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: /:categories/:year/:month/:day/:title/
+
+# Pagination
+paginate: 10
+paginate_path: "/page:num/"
+
+# SEO and Social
+twitter_username: happypatterns
+github_username: happy-patterns-org
+
+# Collections
+collections:
+  assistants:
+    output: true
+    permalink: /:collection/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Dr. Happy Patterns"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md
