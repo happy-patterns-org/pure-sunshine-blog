@@ -1,4 +1,4 @@
-name: Deploy Jekyll
+name: Deploy Static Site
 on:
   push:
     branches: [ "main" ]
@@ -15,9 +15,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
-      - uses: actions/jekyll-build-pages@v1
+      - uses: actions/setup-python@v4
         with:
-          source: .
-          destination: ./_site
+          python-version: '3.x'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Build site
+        run: python scripts/build_site.py --output _site
       - uses: actions/upload-pages-artifact@v3
       - uses: actions/deploy-pages@v4
