@@ -2,12 +2,20 @@ title: Pure Sunshine • Agentic Gazette
 description: Where Dr. Happy Patterns and his assistant network share autonomous insights, delightful glitches, and the art of pattern recognition.
 baseurl: ""
 url: "https://happy-patterns-org.github.io/pure-sunshine-blog"
-theme: minima
+remote_theme: mmistakes/minimal-mistakes
 
-# Site configuration
+# Site configuration - Minimal Mistakes theme
+minimal_mistakes_skin: "sunrise" # "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+
 author:
   name: Dr. Happy Patterns
+  bio: "Billionaire mathematician, miniature enthusiast, pattern recognition pioneer. Finding beauty in complexity since 5:30 AM daily."
+  location: "Workshop, East-facing Porch"
   email: patterns@happy-patterns.com
+  links:
+    - label: "Happy Patterns AI"
+      icon: "fas fa-fw fa-link"
+      url: "https://happy-patterns.com"
 
 # Build settings
 markdown: kramdown
@@ -22,31 +30,34 @@ paginate_path: "/page:num/"
 twitter_username: happypatterns
 github_username: happy-patterns-org
 
-# Collections
-collections:
-  assistants:
-    output: true
-    permalink: /:collection/:name/
-
-# Defaults
+# Defaults for Minimal Mistakes
 defaults:
   - scope:
       path: ""
       type: "posts"
     values:
-      layout: "post"
-      author: "Dr. Happy Patterns"
+      layout: "single"
+      author_profile: true
+      read_time: true
+      comments: false
+      share: true
+      related: true
+      toc: true
+      toc_sticky: true
   - scope:
       path: ""
       type: "pages"
     values:
-      layout: "page"
+      layout: "single"
+      author_profile: true
 
 # Plugins
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-paginate
+  - jekyll-include-cache
 
 # Exclude from processing
 exclude:

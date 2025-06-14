@@ -1,305 +1,228 @@
 ---
 ---
 
-@import "minima";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
-// Dr. Happy Patterns Modern Design System 🌞
-:root {
-  // Primary Color Palette - Sophisticated Sunshine
-  --sage-green: #87A96B;        // Like his 1994 Buick
-  --citrus-gold: #F7B32B;       // Inspired by orange peels
-  --precision-blue: #2563EB;    // Technical excellence
-  --morning-light: #FEF3C7;     // 5:30 AM workshop light
-  --warm-gray: #6B7280;         // Understated elegance
-  --crisp-white: #FEFEFE;       // Clean precision
-  --midnight: #111827;          // Deep focus
-  
-  // Gradient Variables
-  --sunrise-gradient: linear-gradient(135deg, var(--morning-light) 0%, var(--citrus-gold) 50%, var(--sage-green) 100%);
-  --depth-gradient: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.05) 100%);
-  
-  // Typography Scale
-  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
-  
-  // Spacing Scale
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-  
-  // Border Radius
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  
-  // Shadow System
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
+// Dr. Happy Patterns Custom Variables - Override theme defaults 🌞
+// Inspired by his personality: sophisticated, warm, precise
+$serif: "EB Garamond", "Times New Roman", serif !default;
+$sans-serif: "Inter", -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", sans-serif !default;
+$monospace: "JetBrains Mono", Monaco, Consolas, "Lucida Console", monospace !default;
 
-// Reset & Base Styles
-* {
-  box-sizing: border-box;
-}
+// Dr. Happy Patterns Color Palette
+$text-color: #2d3748 !default;                // Deep, thoughtful gray
+$muted-text-color: #6b7280 !default;          // Warm gray for subtlety  
+$primary-color: #2563eb !default;             // Precision blue
+$border-color: mix(#fff, $text-color, 75%) !default;
+$footer-background-color: #2d3748 !default;
+$navicon-link-color-hover: #f7b32b !default;  // Citrus gold
+$link-color: #2563eb !default;                // Precision blue
+$link-color-hover: #f7b32b !default;          // Citrus gold on hover
+$link-color-visited: #7c3aed !default;        // Subtle purple for visited
 
-body {
-  font-family: var(--font-primary);
-  line-height: 1.6;
-  color: var(--midnight);
-  background: var(--crisp-white);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+// Typography scale - elegant and readable
+$type-size-1: 2.441em !default;  // ~39.056px
+$type-size-2: 1.953em !default;  // ~31.248px  
+$type-size-3: 1.563em !default;  // ~25.008px
+$type-size-4: 1.25em !default;   // ~20px
+$type-size-5: 1em !default;      // ~16px
+$type-size-6: 0.875em !default;  // ~14px
+$type-size-7: 0.75em !default;   // ~12px
+$type-size-8: 0.625em !default;  // ~10px
 
-// Modern Header - Sophisticated & Future-Facing
-.site-header {
-  background: var(--sunrise-gradient);
-  backdrop-filter: blur(10px);
-  border: none;
-  box-shadow: var(--shadow-lg);
-  padding: var(--space-lg) 0;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  
-  .wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--space-lg);
-  }
-}
+// Layout improvements
+$right-sidebar-width-narrow: 300px !default;
+$right-sidebar-width: 350px !default;
+$right-sidebar-width-wide: 400px !default;
 
-.site-title {
-  font-family: var(--font-primary);
+// Import the theme after setting variables
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'sunrise' }}";
+@import "minimal-mistakes";
+
+// Dr. Happy Patterns Custom Enhancements ✨
+
+// Beautiful typography
+.page__title {
+  font-family: $serif;
+  background: linear-gradient(135deg, #2563eb 0%, #f7b32b 50%, #87a96b 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   font-weight: 600;
-  font-size: 1.5rem;
-  color: var(--midnight) !important;
-  text-decoration: none !important;
   letter-spacing: -0.025em;
+}
+
+// Enhanced author sidebar
+.author__avatar {
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
   
   &:hover {
-    color: var(--precision-blue) !important;
-    transition: all 0.3s ease;
-    transform: translateY(-1px);
+    transform: scale(1.05);
   }
 }
 
-.site-nav {
-  .page-link {
-    color: var(--midnight);
-    font-weight: 500;
-    text-decoration: none;
-    padding: var(--space-sm) var(--space-md);
-    border-radius: var(--radius-md);
-    transition: all 0.3s ease;
+.author__bio {
+  font-style: italic;
+  color: $muted-text-color;
+  font-size: $type-size-6;
+  line-height: 1.5;
+  margin-bottom: 1em;
+}
+
+.author__name {
+  font-family: $serif;
+  font-weight: 600;
+  color: $text-color;
+}
+
+// Elegant post styling
+.page__content {
+  font-family: $serif;
+  font-size: 1.125em;
+  line-height: 1.7;
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: $sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    margin-top: 2em;
+    margin-bottom: 0.75em;
+  }
+  
+  h2 {
+    border-bottom: 2px solid #f7b32b;
+    padding-bottom: 0.5rem;
+  }
+  
+  blockquote {
+    border-left: 4px solid #f7b32b;
+    background: #fef3c7;
+    border-radius: 8px;
+    padding: 1.5em;
+    margin: 2em 0;
+    font-style: italic;
     
-    &:hover {
-      background: rgba(255, 255, 255, 0.2);
-      color: var(--precision-blue);
-      transform: translateY(-2px);
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  code {
+    background: #fef3c7;
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-family: $monospace;
+    font-size: 0.9em;
+  }
+  
+  pre {
+    background: #2d3748;
+    border-radius: 8px;
+    padding: 1.5em;
+    overflow-x: auto;
+    
+    code {
+      background: transparent;
+      color: #e2e8f0;
+      padding: 0;
     }
   }
 }
 
-// Modern Typography
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-primary);
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.025em;
-  margin-bottom: var(--space-md);
-}
-
-h1 { font-size: 3rem; color: var(--midnight); }
-h2 { font-size: 2.25rem; color: var(--precision-blue); }
-h3 { font-size: 1.875rem; color: var(--sage-green); }
-
-// Modern Link Styling
-a {
-  color: var(--precision-blue);
-  text-decoration-color: rgba(37, 99, 235, 0.3);
+// Beautiful link styling
+.page__content a:not(.btn) {
+  color: $link-color;
+  text-decoration-color: rgba($link-color, 0.3);
   text-underline-offset: 3px;
   transition: all 0.3s ease;
   
   &:hover {
-    color: var(--citrus-gold);
-    text-decoration-color: var(--citrus-gold);
+    color: $link-color-hover;
+    text-decoration-color: $link-color-hover;
     transform: translateY(-1px);
   }
+  
+  &:visited {
+    color: $link-color-visited;
+  }
 }
 
-// Homepage Hero Section
-.home {
-  .page-content {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: var(--space-2xl) var(--space-lg);
-  }
+// Enhanced navigation
+.masthead {
+  background: linear-gradient(135deg, #fef3c7 0%, #f7b32b 50%, #87a96b 100%);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   
-  h1 {
-    text-align: center;
-    background: linear-gradient(135deg, var(--precision-blue) 0%, var(--citrus-gold) 50%, var(--sage-green) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: var(--space-xl);
-    font-size: 3.5rem;
+  .site-title {
+    font-family: $serif;
     font-weight: 700;
-  }
-  
-  h2 {
-    color: var(--precision-blue);
-    position: relative;
-    padding-bottom: var(--space-md);
-    margin-top: var(--space-2xl);
-    
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 60px;
-      height: 3px;
-      background: var(--citrus-gold);
-      border-radius: var(--radius-sm);
-    }
-  }
-  
-  p {
-    font-size: 1.125rem;
-    color: var(--warm-gray);
-    margin-bottom: var(--space-lg);
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-    
-    li {
-      padding: var(--space-md);
-      margin-bottom: var(--space-sm);
-      background: var(--morning-light);
-      border-radius: var(--radius-lg);
-      border-left: 4px solid var(--citrus-gold);
-      transition: all 0.3s ease;
-      
-      &:hover {
-        transform: translateX(8px);
-        box-shadow: var(--shadow-md);
-      }
-      
-      strong {
-        color: var(--precision-blue);
-        font-weight: 600;
-      }
-    }
-  }
-}
-
-// Modern Post Styling
-.post {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: var(--space-2xl) var(--space-lg);
-  
-  .post-header {
-    text-align: center;
-    margin-bottom: var(--space-2xl);
-    padding-bottom: var(--space-xl);
-    border-bottom: 1px solid rgba(107, 114, 128, 0.2);
-  }
-  
-  .post-title {
-    color: var(--precision-blue);
-    margin-bottom: var(--space-md);
-  }
-  
-  .post-meta {
-    color: var(--warm-gray);
-    font-size: 0.875rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  
-  .post-content {
-    font-size: 1.125rem;
-    line-height: 1.8;
-    
-    p {
-      margin-bottom: var(--space-lg);
-    }
-    
-    blockquote {
-      border-left: 4px solid var(--citrus-gold);
-      background: var(--morning-light);
-      padding: var(--space-lg);
-      margin: var(--space-xl) 0;
-      border-radius: var(--radius-md);
-      font-style: italic;
-    }
-    
-    code {
-      font-family: var(--font-mono);
-      background: var(--morning-light);
-      padding: 2px 6px;
-      border-radius: var(--radius-sm);
-      font-size: 0.875em;
-    }
-  }
-}
-
-// Modern Footer
-.site-footer {
-  background: var(--midnight);
-  color: var(--crisp-white);
-  padding: var(--space-2xl) 0;
-  margin-top: var(--space-2xl);
-  
-  .wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--space-lg);
-    text-align: center;
-  }
-  
-  .footer-heading {
-    color: var(--crisp-white);
-    font-weight: 600;
-    margin-bottom: var(--space-md);
-  }
-  
-  a {
-    color: var(--citrus-gold);
+    font-size: 1.5em;
+    color: $text-color;
+    text-decoration: none;
     
     &:hover {
-      color: var(--crisp-white);
+      color: $primary-color;
     }
   }
+}
+
+// Post excerpts on archive pages
+.archive__item-excerpt {
+  color: $muted-text-color;
+  font-size: 0.95em;
+  line-height: 1.6;
+  margin-top: 0.5em;
+}
+
+.archive__item-title {
+  font-family: $serif;
+  font-weight: 600;
   
-  p {
-    color: var(--warm-gray);
-    margin-bottom: var(--space-sm);
+  a {
+    color: $text-color;
+    text-decoration: none;
+    
+    &:hover {
+      color: $link-color-hover;
+    }
   }
 }
 
-// Elegant Animations
-@keyframes gentle-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.8; }
+// Elegant footer
+.page__footer {
+  background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+  color: #e2e8f0;
+  
+  .page__footer-follow .social-icons {
+    .fa {
+      color: #f7b32b;
+      
+      &:hover {
+        color: #e2e8f0;
+      }
+    }
+  }
 }
 
-@keyframes slide-in {
+// Responsive typography
+@media (max-width: $small) {
+  .page__content {
+    font-size: 1em;
+  }
+  
+  .page__title {
+    font-size: $type-size-2;
+  }
+}
+
+// Animation enhancements
+.page__content {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
   from {
     opacity: 0;
     transform: translateY(20px);
@@ -310,50 +233,22 @@ a {
   }
 }
 
-.page-content {
-  animation: slide-in 0.6s ease-out;
-}
-
-// Responsive Design
-@media (max-width: 768px) {
-  .home h1 {
-    font-size: 2.5rem;
+// Table of contents styling
+.toc {
+  background: #fef3c7;
+  border: 1px solid #f7b32b;
+  border-radius: 8px;
+  
+  .toc__title {
+    color: $text-color;
+    font-weight: 600;
   }
   
-  .site-header .wrapper {
-    padding: 0 var(--space-md);
-  }
-  
-  .home .page-content,
-  .post {
-    padding: var(--space-xl) var(--space-md);
-  }
-  
-  .site-nav {
-    display: none; // Simplify for mobile
-  }
-}
-
-@media (max-width: 480px) {
-  .home h1 {
-    font-size: 2rem;
-  }
-  
-  .home ul li {
-    padding: var(--space-sm);
-  }
-}
-
-// Print Styles
-@media print {
-  .site-header,
-  .site-footer,
-  .site-nav {
-    display: none;
-  }
-  
-  body {
-    font-size: 12pt;
-    line-height: 1.4;
+  a {
+    color: $text-color;
+    
+    &:hover {
+      color: $link-color-hover;
+    }
   }
 }
