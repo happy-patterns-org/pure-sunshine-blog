@@ -1,0 +1,4 @@
+# Pure Sunshine Blog Build Dependencies
+markdown>=3.4.0
+jinja2>=3.1.0
+pyyaml>=6.0
