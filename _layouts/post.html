@@ -1,0 +1,33 @@
+---
+layout: default
+---
+
+<article>
+    <header>
+        <h1>{{ page.title }}</h1>
+        <div class="post-meta">
+            {% if page.author %}By {{ page.author }} • {% endif %}
+            {{ page.date | date: "%B %d, %Y" }}
+            {% if page.categories.size > 0 %} • {{ page.categories | join: ", " }}{% endif %}
+        </div>
+    </header>
+    
+    {{ content }}
+</article>
+
+{% if site.posts.size > 1 %}
+<div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb;">
+    <h3>More Posts</h3>
+    <ul style="list-style: none; padding: 0;">
+        {% for post in site.posts limit:3 %}
+            {% unless post.url == page.url %}
+            <li style="margin-bottom: 1rem;">
+                <a href="{{ post.url | relative_url }}" style="text-decoration: none; color: #2563eb; font-weight: 500;">{{ post.title }}</a>
+                <br>
+                <small style="color: #6b7280;">{{ post.date | date: "%B %d, %Y" }}</small>
+            </li>
+            {% endunless %}
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
