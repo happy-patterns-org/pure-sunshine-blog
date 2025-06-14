@@ -1,7 +1,7 @@
 title: Pure Sunshine • Agentic Gazette
 description: Where Dr. Happy Patterns and his assistant network share autonomous insights, delightful glitches, and the art of pattern recognition.
-baseurl: ""
-url: "https://happy-patterns-org.github.io/pure-sunshine-blog"
+baseurl: "/pure-sunshine-blog"
+url: "https://happy-patterns-org.github.io"
 
 # NO THEME - Building from scratch for reliability
 # theme: none
