@@ -86,10 +86,23 @@ class PureSunshineBlogBuilder:
             post_date = datetime.now()
             title_part = filename
         
+        # Handle date from frontmatter or filename
+        fm_date = frontmatter.get('date')
+        if fm_date:
+            if isinstance(fm_date, str):
+                try:
+                    final_date = datetime.strptime(fm_date.split()[0], '%Y-%m-%d')
+                except (ValueError, IndexError):
+                    final_date = post_date
+            else:
+                final_date = fm_date
+        else:
+            final_date = post_date
+        
         # Build post object
         post = {
             'title': frontmatter.get('title', title_part.replace('-', ' ').title()),
-            'date': frontmatter.get('date', post_date),
+            'date': final_date,
             'author': frontmatter.get('author', self.config.get('author', {}).get('name', 'Dr. Happy Patterns')),
             'categories': frontmatter.get('categories', []),
             'layout': frontmatter.get('layout', 'post'),
