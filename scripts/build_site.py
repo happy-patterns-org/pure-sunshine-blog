@@ -52,6 +52,37 @@ class PureSunshineBlogBuilder:
             return f"{baseurl}{url}"
         return f"{baseurl}/{url}"
     
+    def _generate_posts_list(self) -> str:
+        """Generate HTML for posts listing."""
+        if not self.posts:
+            return '''
+<div style="text-align: center; padding: 3rem; color: #6b7280;">
+    <p>No posts yet! The A₀BlogStewardAgent will be adding content soon. 🤖</p>
+</div>
+'''
+        
+        posts_html = '<div class="posts-list">\n'
+        for post in self.posts:
+            baseurl = self.config.get('baseurl', '')
+            post_url = f"{baseurl}{post['url']}"
+            
+            # Format categories
+            categories_str = ""
+            if post.get('categories'):
+                categories_str = f' • {", ".join(post["categories"])}'
+            
+            posts_html += f'''
+<div style="margin: 2rem 0; padding: 1.5rem; background: #fef3c7; border-radius: 8px; border-left: 4px solid #f7b32b;">
+    <h3><a href="{post_url}" style="text-decoration: none; color: #2563eb;">{post['title']}</a></h3>
+    <p style="color: #6b7280; font-size: 0.9rem; margin: 0.5rem 0;">{post['date'].strftime('%B %d, %Y')} by {post['author']}{categories_str}</p>
+    <p>{post['excerpt']}</p>
+    <a href="{post_url}" style="color: #2563eb; font-weight: 500;">Read more →</a>
+</div>
+'''
+        
+        posts_html += '</div>\n'
+        return posts_html
+    
     def _parse_post(self, post_path: Path) -> Dict[str, Any]:
         """Parse a markdown post file."""
         with open(post_path, 'r', encoding='utf-8') as f:
@@ -262,6 +293,11 @@ class PureSunshineBlogBuilder:
             
             # Convert markdown
             html_content = self.md.convert(markdown_content)
+            
+            # Special handling for posts page - inject posts list
+            if page_file.stem == "posts" or frontmatter.get('title') == 'All Posts':
+                posts_html = self._generate_posts_list()
+                html_content += posts_html
             
             # Determine output path
             permalink = frontmatter.get('permalink')
