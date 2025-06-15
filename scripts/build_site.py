@@ -273,11 +273,18 @@ class PureSunshineBlogBuilder:
             else:
                 output_path = self.output_dir / f"{page_file.stem}.html"
             
-            # Render with layout
+            # First render the page content with page template
             layout = frontmatter.get('layout', 'page')
-            rendered = self._render_template(f"{layout}.html", {
+            page_content = self._render_template(f"{layout}.html", {
                 'content': html_content,
                 'page': frontmatter
+            })
+            
+            # Then wrap in default layout
+            rendered = self._render_template("default.html", {
+                'content': page_content,
+                'page': frontmatter,
+                'site': self.config
             })
             
             self._write_file(output_path, rendered)
