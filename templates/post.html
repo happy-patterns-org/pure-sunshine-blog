@@ -12,7 +12,7 @@ layout: default
         </div>
     </header>
     
-    {{ content }}
+    {{ content | safe }}
 </article>
 
 {% if site.posts|length > 1 %}
