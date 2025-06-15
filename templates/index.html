@@ -255,9 +255,9 @@
     </header>
     
     <nav class="nav">
-        <a href="{{ url_for('index') }}">Home</a>
-        <a href="{{ url_for('about') }}">About</a>
-        <a href="{{ url_for('posts') }}">Posts</a>
+        <a href="{{ '/' | relative_url }}">Home</a>
+        <a href="{{ '/about/' | relative_url }}">About</a>
+        <a href="{{ '/posts/' | relative_url }}">Posts</a>
     </nav>
     
     <main class="container">
@@ -271,7 +271,7 @@
             <h2>Recent Posts 🌞</h2>
             {% for post in recent_posts %}
             <div class="post-card">
-                <h3><a href="{{ url_for('post', slug=post.slug) }}">{{ post.title }}</a></h3>
+                <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
                 <div class="post-meta">{{ post.date.strftime('%B %d, %Y') }} by {{ post.author }}</div>
                 {% if post.categories %}
                 <div class="post-categories">
@@ -281,7 +281,7 @@
                 </div>
                 {% endif %}
                 <p>{{ post.excerpt | striptags | truncate(200) }}</p>
-                <a href="{{ url_for('post', slug=post.slug) }}" class="read-more">Read more →</a>
+                <a href="{{ post.url | relative_url }}" class="read-more">Read more →</a>
             </div>
             {% endfor %}
             

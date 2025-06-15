@@ -22,7 +22,7 @@ layout: default
         {% for post in site.posts[:3] %}
             {% if post.url != page.url %}
             <li style="margin-bottom: 1rem;">
-                <a href="{{ url_for('post', slug=post.slug) }}" style="text-decoration: none; color: #2563eb; font-weight: 500;">{{ post.title }}</a>
+                <a href="{{ post.url | relative_url }}" style="text-decoration: none; color: #2563eb; font-weight: 500;">{{ post.title }}</a>
                 <br>
                 <small style="color: #6b7280;">{{ post.date.strftime('%B %d, %Y') }}</small>
             </li>
