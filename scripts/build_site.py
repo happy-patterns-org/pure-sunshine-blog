@@ -30,6 +30,9 @@ class PureSunshineBlogBuilder:
             autoescape=select_autoescape(['html', 'xml'])
         )
         
+        # Add custom Jekyll-style filters
+        self.jinja_env.filters['relative_url'] = self._relative_url_filter
+        
         # Setup Markdown processor
         self.md = markdown.Markdown(extensions=['meta', 'codehilite', 'toc'])
     
@@ -41,6 +44,13 @@ class PureSunshineBlogBuilder:
         
         with open(config_path, 'r', encoding='utf-8') as f:
             return yaml.safe_load(f) or {}
+    
+    def _relative_url_filter(self, url: str) -> str:
+        """Custom filter to mimic Jekyll's relative_url filter."""
+        baseurl = self.config.get('baseurl', '')
+        if url.startswith('/'):
+            return f"{baseurl}{url}"
+        return f"{baseurl}/{url}"
     
     def _parse_post(self, post_path: Path) -> Dict[str, Any]:
         """Parse a markdown post file."""
