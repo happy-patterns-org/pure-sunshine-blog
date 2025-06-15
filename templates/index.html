@@ -264,7 +264,7 @@
         <div class="content">
             <!-- Custom content from index.md if present -->
             {% if content %}
-            {{ content }}
+            {{ content | safe }}
             {% endif %}
             
             <!-- Recent Posts Section -->
