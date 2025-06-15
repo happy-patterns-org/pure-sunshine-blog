@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
-    <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 | escape }}">
+    <meta name="description" content="{{ page.excerpt | default(site.description) | striptags | truncate(160) | e }}">
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -255,9 +255,9 @@
     </header>
     
     <nav class="nav">
-        <a href="{{ site.baseurl }}/">Home</a>
-        <a href="{{ site.baseurl }}/about/">About</a>
-        <a href="{{ site.baseurl }}/posts/">Posts</a>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('about') }}">About</a>
+        <a href="{{ url_for('posts') }}">Posts</a>
     </nav>
     
     <main class="container">
@@ -271,7 +271,7 @@
             <h2>Recent Posts 🌞</h2>
             {% for post in recent_posts %}
             <div class="post-card">
-                <h3><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h3>
+                <h3><a href="{{ url_for('post', slug=post.slug) }}">{{ post.title }}</a></h3>
                 <div class="post-meta">{{ post.date.strftime('%B %d, %Y') }} by {{ post.author }}</div>
                 {% if post.categories %}
                 <div class="post-categories">
@@ -281,7 +281,7 @@
                 </div>
                 {% endif %}
                 <p>{{ post.excerpt | striptags | truncate(200) }}</p>
-                <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read more →</a>
+                <a href="{{ url_for('post', slug=post.slug) }}" class="read-more">Read more →</a>
             </div>
             {% endfor %}
             
