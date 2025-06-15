@@ -289,9 +289,16 @@ class PureSunshineBlogBuilder:
             url = post['url'].strip('/')
             output_path = self.output_dir / url / "index.html"
             
-            # Render with post layout
-            rendered = self._render_template("post.html", {
+            # First render the post content with post template
+            post_content = self._render_template("post.html", {
                 'content': post['content'],
+                'page': post,
+                'post': post
+            })
+            
+            # Then wrap in default layout
+            rendered = self._render_template("default.html", {
+                'content': post_content,
                 'page': post,
                 'post': post
             })
